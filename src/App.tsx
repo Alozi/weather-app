@@ -21,7 +21,33 @@ const Title = styled.h1`
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 `;
 
+async function getWeather() {
+  console.log("getWeather");
+  try {
+    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+    const city = "Kyiv";
+
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+    );
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    console.log(data);
+    console.log("Weather:", data);
+    console.log(`Temperature ${data.name}: ${data.main.temp}°C`);
+    console.log(`Description: ${data.weather[0].description}`);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function App() {
+  getWeather();
+
   return (
     <>
       <Layout>
