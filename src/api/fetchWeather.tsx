@@ -8,7 +8,6 @@ export default async function fetchWeather(API_KEY: string, city: string) {
   }
 
   const data = await response.json();
-  console.log(data);
 
   return data;
 }

@@ -7,6 +7,6 @@ export interface WeatherData {
     temp: number;
   };
   weather: {
-    description: string;
+    main: string;
   }[];
 }

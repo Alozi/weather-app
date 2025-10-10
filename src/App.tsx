@@ -38,16 +38,7 @@ function App() {
     <>
       <Layout>
         <Title>Weather Forecast App</Title>
-        <WeatherCard />
-        {weather && (
-          <div>
-            <h3>
-              {weather.name}, {weather.sys.country}
-            </h3>
-            <p>Temperature: {weather.main.temp}°C</p>
-            <p>Weather: {weather.weather[0].description}</p>
-          </div>
-        )}
+        {weather && <WeatherCard weather={weather} />}
       </Layout>
       <GlobalStyle />
     </>

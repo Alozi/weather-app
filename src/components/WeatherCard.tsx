@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import type { WeatherData } from "../types/weather";
 
 const Card = styled.div`
   background: rgba(255, 255, 255, 0.8);
@@ -36,12 +37,16 @@ const Description = styled.p`
   margin-top: 0.5rem;
 `;
 
-export default function WeatherCard() {
+export default function WeatherCard({ weather }: { weather: WeatherData }) {
+  console.log(weather);
+
   return (
     <Card>
-      <City>Irpin</City>
-      <Temperature>+18°C</Temperature>
-      <Description>Sunny</Description>
+      <City>
+        {weather.name}, {weather.sys.country}
+      </City>
+      <Temperature>{weather.main.temp}°C</Temperature>
+      <Description>{weather.weather[0].main}</Description>
     </Card>
   );
 }
