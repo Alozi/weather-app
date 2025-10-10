@@ -5,6 +5,7 @@ import WeatherCard from "./components/WeatherCard";
 import { GlobalStyle } from "./styles/GlobalStyles";
 import type { WeatherData } from "./types/weather";
 import fetchWeather from "./api/fetchWeather";
+import SearchBar from "./components/SearchBar";
 
 const Layout = styled.div`
   display: flex;
@@ -38,6 +39,7 @@ function App() {
     <>
       <Layout>
         <Title>Weather Forecast App</Title>
+        <SearchBar onSearch={setCity} />
         {weather && <WeatherCard weather={weather} />}
       </Layout>
       <GlobalStyle />
