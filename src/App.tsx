@@ -1,6 +1,10 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import WeatherCard from "./components/WeatherCard";
 import { GlobalStyle } from "./styles/GlobalStyles";
+import type { WeatherData } from "./types/weather";
+import fetchWeather from "./api/fetchWeather";
 
 const Layout = styled.div`
   display: flex;
@@ -21,38 +25,29 @@ const Title = styled.h1`
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 `;
 
-async function getWeather() {
-  console.log("getWeather");
-  try {
-    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
-    const city = "Kyiv";
-
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
-    );
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    console.log(data);
-    console.log("Weather:", data);
-    console.log(`Temperature ${data.name}: ${data.main.temp}°C`);
-    console.log(`Description: ${data.weather[0].description}`);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 function App() {
-  getWeather();
+  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+  const [city, setCity] = useState("Kyiv");
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+
+  useEffect(() => {
+    fetchWeather(API_KEY, city).then(setWeather).catch(console.error);
+  }, [API_KEY, city]);
 
   return (
     <>
       <Layout>
         <Title>Weather Forecast App</Title>
         <WeatherCard />
+        {weather && (
+          <div>
+            <h3>
+              {weather.name}, {weather.sys.country}
+            </h3>
+            <p>Temperature: {weather.main.temp}°C</p>
+            <p>Weather: {weather.weather[0].description}</p>
+          </div>
+        )}
       </Layout>
       <GlobalStyle />
     </>
