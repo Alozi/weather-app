@@ -3,10 +3,21 @@ export interface WeatherData {
   sys: {
     country: string;
   };
+  clouds: {
+    all: number;
+  };
+  wind: {
+    speed: number;
+  };
   main: {
     temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    humidity: number;
   };
   weather: {
-    main: string;
+    description: string;
+    icon: string;
   }[];
 }
