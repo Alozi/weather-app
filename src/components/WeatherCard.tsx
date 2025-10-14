@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import type { WeatherData } from "../types/weather";
+import { WiHumidity, WiStrongWind, WiCloud, WiThermometer } from "react-icons/wi";
 
 const fadeIn = keyframes`
   from {
@@ -96,6 +97,19 @@ const Description = styled.p`
   text-transform: capitalize;
 `;
 
+const InfoItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  color: #03045e;
+  font-size: 1rem;
+  
+  svg {
+    font-size: 2rem;
+    color: #0077b6;
+  }
+`;
+
 const Icon = styled.img`
   width: 110px;
   height: 110px;
@@ -125,10 +139,10 @@ export default function WeatherCard({ weather }: { weather: WeatherData }) {
       <Description>{weather.weather[0].description}</Description>
 
       <Details>
-        <p>Feels like: {Math.round(weather.main.feels_like)}°C</p>
-        <p>Humidity: {weather.main.humidity}%</p>
-        <p>Clouds: {weather.clouds.all}%</p>
-        <p>Wind: {weather.wind.speed} m/s</p>
+        <InfoItem><WiThermometer/>Feels like: {Math.round(weather.main.feels_like)}°C</InfoItem>
+        <InfoItem><WiHumidity />Humidity: {weather.main.humidity}%</InfoItem>
+        <InfoItem><WiCloud />Clouds: {weather.clouds.all}%</InfoItem>
+        <InfoItem><WiStrongWind/>Wind: {weather.wind.speed} m/s</InfoItem>
       </Details>
     </Card>
   );
