@@ -58,24 +58,18 @@ const City = styled.h2`
   color: #0077b6;
 `;
 
-// const Title = styled.h3`
-//   font-size: 1.5rem;
-//   color: #0077b6;
-//   text-transform: uppercase;
-//   letter-spacing: 1px;
-//   margin-bottom: 0.5rem;
-// `;
-
 const Temperature = styled.p`
   font-size: 2.5rem;
   font-weight: 700;
   color: #023e8a;
 `;
 
-// const FeelsLike = styled.p`
-//   font-size: 1rem;
-//   color: #555;
-// `;
+const Description = styled.p`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #023e8a;
+  text-transform: capitalize;
+`;
 
 const Details = styled.div`
   display: grid;
@@ -83,18 +77,6 @@ const Details = styled.div`
   gap: 1rem 1.5rem;
   justify-items: center;
   width: 100%;
-
-  p {
-    font-size: 1rem;
-    color: #444;
-    margin: 0;
-  }
-`;
-
-const Description = styled.p`
-  font-size: 1rem;
-  color: #555;
-  text-transform: capitalize;
 `;
 
 const InfoItem = styled.div`
@@ -133,11 +115,9 @@ export default function WeatherCard({ weather }: { weather: WeatherData }) {
       <City>
         {weather.name}, {weather.sys.country}
       </City>
-
-      <Icon src={iconUrl} alt={weather.weather[0].description} />
       <Temperature>{Math.round(weather.main.temp)}°C</Temperature>
+      <Icon src={iconUrl} alt={weather.weather[0].description} />
       <Description>{weather.weather[0].description}</Description>
-
       <Details>
         <InfoItem><WiThermometer/>Feels like: {Math.round(weather.main.feels_like)}°C</InfoItem>
         <InfoItem><WiHumidity />Humidity: {weather.main.humidity}%</InfoItem>

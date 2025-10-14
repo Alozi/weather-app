@@ -13,7 +13,6 @@ const Layout = styled.div`
   align-items: center;
   min-height: 100vh;
   gap: 2rem;
-  /* background: linear-gradient(135deg, #a2d2ff 0%, #ffe5ec 100%); */
   background: linear-gradient(to bottom right, #a2d2ff, #bde0fe, #fff1e6);
   padding: 2rem;
   color: #333;
