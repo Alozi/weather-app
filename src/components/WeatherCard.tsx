@@ -1,6 +1,15 @@
 import styled, { keyframes } from "styled-components";
 import type { WeatherData } from "../types/weather";
-import { WiHumidity, WiStrongWind, WiCloud, WiThermometer, WiSunrise, WiSunset, WiFog, WiTime1 } from "react-icons/wi";
+import {
+  WiHumidity,
+  WiStrongWind,
+  WiCloud,
+  WiThermometer,
+  WiSunrise,
+  WiSunset,
+  WiFog,
+  WiTime1,
+} from "react-icons/wi";
 
 const fadeIn = keyframes`
   from {
@@ -28,9 +37,7 @@ const Card = styled.div`
   gap: 0.75rem;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   animation: ${fadeIn} 0.5s ease-out;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     transform: translateY(-6px);
@@ -44,8 +51,7 @@ const Card = styled.div`
     border-radius: 20px;
     padding: 2px;
     background: linear-gradient(135deg, #48cae4, #0096c7, #ade8f4);
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -79,7 +85,7 @@ const Temperature = styled.p`
   font-size: 2.5rem;
   font-weight: 700;
   color: #023e8a;
-  
+
   svg {
     font-size: 4rem;
     color: #023e8a;
@@ -113,7 +119,7 @@ const InfoItem = styled.div`
   gap: 0.2rem;
   color: #03045e;
   font-size: 1rem;
-  
+
   svg {
     font-size: 2rem;
     color: #0077b6;
@@ -123,9 +129,7 @@ const InfoItem = styled.div`
 const Icon = styled.img`
   width: 110px;
   height: 110px;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   ${Card}:hover & {
     transform: scale(1.1);
@@ -134,33 +138,61 @@ const Icon = styled.img`
 
 export default function WeatherCard({ weather }: { weather: WeatherData }) {
   const currentTime = new Date().getTime();
-  const currentTimeLocal = new Date(currentTime + weather.timezone * 1000).toUTCString();
+  const currentTimeLocal = new Date(
+    currentTime + weather.timezone * 1000
+  ).toUTCString();
 
   const iconCode = weather.weather[0].icon;
   const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
-  const sunrise = new Date(weather.sys.sunrise * 1000 + weather.timezone * 1000).toUTCString();
-  const sunset = new Date(weather.sys.sunset * 1000 + weather.timezone * 1000).toUTCString();
-
-  console.log(weather);
+  const sunrise = new Date(
+    weather.sys.sunrise * 1000 + weather.timezone * 1000
+  ).toUTCString();
+  const sunset = new Date(
+    weather.sys.sunset * 1000 + weather.timezone * 1000
+  ).toUTCString();
 
   return (
     <Card>
       <City>
         {weather.name}, {weather.sys.country}
       </City>
-      <Time><WiTime1/>{currentTimeLocal}</Time>
-      <Temperature><WiThermometer/>{Math.round(weather.main.temp)}°C</Temperature>
+      <Time>
+        <WiTime1 />
+        {currentTimeLocal}
+      </Time>
+      <Temperature>
+        <WiThermometer />
+        {Math.round(weather.main.temp)}°C
+      </Temperature>
       <FeelsLike>Feels like {Math.round(weather.main.feels_like)}°C</FeelsLike>
       <Icon src={iconUrl} alt={weather.weather[0].description} />
       <Description>{weather.weather[0].description}</Description>
       <Details>
-        <InfoItem><WiCloud />Clouds: {weather.clouds.all}%</InfoItem>
-        <InfoItem><WiStrongWind/>Wind: {weather.wind.speed} m/s</InfoItem>
-        <InfoItem><WiHumidity />Humidity: {weather.main.humidity}%</InfoItem>
-        <InfoItem><WiFog/>Visibility: {weather.visibility/1000}km</InfoItem>
-        <InfoItem><WiSunrise />Sunrise: {sunrise}</InfoItem>
-        <InfoItem><WiSunset />Sunset: {sunset}</InfoItem>
+        <InfoItem>
+          <WiCloud />
+          Clouds: {weather.clouds.all}%
+        </InfoItem>
+        <InfoItem>
+          <WiStrongWind />
+          Wind: {weather.wind.speed} m/s
+        </InfoItem>
+        <InfoItem>
+          <WiHumidity />
+          Humidity: {weather.main.humidity}%
+        </InfoItem>
+        <InfoItem>
+          <WiFog />
+          Visibility: {weather.visibility / 1000}km
+        </InfoItem>
+        <InfoItem>
+          <WiSunrise />
+          Sunrise: {sunrise}
+        </InfoItem>
+        <InfoItem>
+          <WiSunset />
+          Sunset: {sunset}
+        </InfoItem>
       </Details>
     </Card>
   );
