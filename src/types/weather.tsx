@@ -1,7 +1,10 @@
 export interface WeatherData {
   name: string;
+  visibility: number;
   sys: {
     country: string;
+    sunrise: number;
+    sunset: number;
   };
   clouds: {
     all: number;

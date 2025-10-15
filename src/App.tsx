@@ -18,12 +18,6 @@ const Layout = styled.div`
   color: #333;
 `;
 
-const Time = styled.p`
-  font-size: 1rem;
-  color: #fff;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-`;
-
 const Title = styled.h1`
   font-size: 2.5rem;
   color: #fff;
@@ -31,7 +25,6 @@ const Title = styled.h1`
 `;
 
 function App() {
-  const currentTime = new Date().toLocaleString();
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
   const [city, setCity] = useState("Kyiv");
   const [weather, setWeather] = useState<WeatherData | null>(null);
@@ -43,7 +36,6 @@ function App() {
   return (
     <>
       <Layout>
-        <Time>{currentTime} EET (UTC+3)</Time>
         <Title>Weather Forecast App</Title>
         <SearchBar onSearch={setCity} />
         {weather && <WeatherCard weather={weather} />}

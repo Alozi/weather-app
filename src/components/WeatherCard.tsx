@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import type { WeatherData } from "../types/weather";
-import { WiHumidity, WiStrongWind, WiCloud, WiThermometer } from "react-icons/wi";
+import { WiHumidity, WiStrongWind, WiCloud, WiThermometer, WiSunrise, WiSunset, WiFog, WiTime1 } from "react-icons/wi";
 
 const fadeIn = keyframes`
   from {
@@ -56,11 +56,39 @@ const Card = styled.div`
 const City = styled.h2`
   font-size: 2.2rem;
   color: #0077b6;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+`;
+
+const Time = styled.p`
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 1.2rem;
+  color: #0077b6;
+
+  svg {
+    font-size: 2rem;
+    color: #0077b6;
+  }
 `;
 
 const Temperature = styled.p`
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
   font-size: 2.5rem;
   font-weight: 700;
+  color: #023e8a;
+  
+  svg {
+    font-size: 4rem;
+    color: #023e8a;
+  }
+`;
+
+const FeelsLike = styled.p`
+  font-size: 1.5rem;
+  font-weight: 500;
   color: #023e8a;
 `;
 
@@ -105,6 +133,7 @@ const Icon = styled.img`
 `;
 
 export default function WeatherCard({ weather }: { weather: WeatherData }) {
+  const currentTime = new Date().toLocaleString();
   const iconCode = weather.weather[0].icon;
   const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
@@ -115,14 +144,18 @@ export default function WeatherCard({ weather }: { weather: WeatherData }) {
       <City>
         {weather.name}, {weather.sys.country}
       </City>
-      <Temperature>{Math.round(weather.main.temp)}°C</Temperature>
+      <Time><WiTime1/>{currentTime} EET (UTC+3)</Time>
+      <Temperature><WiThermometer/>{Math.round(weather.main.temp)}°C</Temperature>
+      <FeelsLike>Feels like {Math.round(weather.main.feels_like)}°C</FeelsLike>
       <Icon src={iconUrl} alt={weather.weather[0].description} />
       <Description>{weather.weather[0].description}</Description>
       <Details>
-        <InfoItem><WiThermometer/>Feels like: {Math.round(weather.main.feels_like)}°C</InfoItem>
-        <InfoItem><WiHumidity />Humidity: {weather.main.humidity}%</InfoItem>
         <InfoItem><WiCloud />Clouds: {weather.clouds.all}%</InfoItem>
         <InfoItem><WiStrongWind/>Wind: {weather.wind.speed} m/s</InfoItem>
+        <InfoItem><WiHumidity />Humidity: {weather.main.humidity}%</InfoItem>
+        <InfoItem><WiFog/>Visibility: {weather.visibility/1000}km</InfoItem>
+        <InfoItem><WiSunrise />Sunrise: {weather.sys.sunrise}</InfoItem>
+        <InfoItem><WiSunset />Sunset: {weather.sys.sunset}</InfoItem>
       </Details>
     </Card>
   );
