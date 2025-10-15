@@ -26,7 +26,7 @@ const Title = styled.h1`
 
 function App() {
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
-  const [city, setCity] = useState("Kyiv");
+  const [city, setCity] = useState("Lisbon");
   const [weather, setWeather] = useState<WeatherData | null>(null);
 
   useEffect(() => {

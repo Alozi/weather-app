@@ -133,9 +133,14 @@ const Icon = styled.img`
 `;
 
 export default function WeatherCard({ weather }: { weather: WeatherData }) {
-  const currentTime = new Date().toLocaleString();
+  const currentTime = new Date().getTime();
+  const currentTimeLocal = new Date(currentTime + weather.timezone * 1000).toUTCString();
+
   const iconCode = weather.weather[0].icon;
   const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+  const sunrise = new Date(weather.sys.sunrise * 1000 + weather.timezone * 1000).toUTCString();
+  const sunset = new Date(weather.sys.sunset * 1000 + weather.timezone * 1000).toUTCString();
 
   console.log(weather);
 
@@ -144,7 +149,7 @@ export default function WeatherCard({ weather }: { weather: WeatherData }) {
       <City>
         {weather.name}, {weather.sys.country}
       </City>
-      <Time><WiTime1/>{currentTime} EET (UTC+3)</Time>
+      <Time><WiTime1/>{currentTimeLocal}</Time>
       <Temperature><WiThermometer/>{Math.round(weather.main.temp)}°C</Temperature>
       <FeelsLike>Feels like {Math.round(weather.main.feels_like)}°C</FeelsLike>
       <Icon src={iconUrl} alt={weather.weather[0].description} />
@@ -154,8 +159,8 @@ export default function WeatherCard({ weather }: { weather: WeatherData }) {
         <InfoItem><WiStrongWind/>Wind: {weather.wind.speed} m/s</InfoItem>
         <InfoItem><WiHumidity />Humidity: {weather.main.humidity}%</InfoItem>
         <InfoItem><WiFog/>Visibility: {weather.visibility/1000}km</InfoItem>
-        <InfoItem><WiSunrise />Sunrise: {weather.sys.sunrise}</InfoItem>
-        <InfoItem><WiSunset />Sunset: {weather.sys.sunset}</InfoItem>
+        <InfoItem><WiSunrise />Sunrise: {sunrise}</InfoItem>
+        <InfoItem><WiSunset />Sunset: {sunset}</InfoItem>
       </Details>
     </Card>
   );
