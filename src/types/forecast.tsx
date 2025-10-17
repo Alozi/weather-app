@@ -1,10 +1,11 @@
 export interface ForecastData {
-  list: [
-    {
-      dt: number;
-      main: {
-        temp: number;
-      };
-    }
-  ];
+  dt: number;
+  main: {
+    temp: number;
+    feels_like: number;
+  };
+  weather: {
+    description: string;
+    icon: string;
+  }[];
 }

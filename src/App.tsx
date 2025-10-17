@@ -7,6 +7,7 @@ import type { WeatherData } from "./types/weather";
 import type { ForecastData } from "./types/forecast";
 import { fetchWeather, fetchForecast } from "./api/fetchWeather";
 import SearchBar from "./components/SearchBar";
+import ForecastCard from "./components/ForecastCard";
 
 const Layout = styled.div`
   display: flex;
@@ -29,21 +30,31 @@ function App() {
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
   const [city, setCity] = useState("Lisbon");
   const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [forecast, setForecast] = useState<ForecastData | null>(null);
+  const [forecast, setForecast] = useState<ForecastData[] | null>(null);
 
   useEffect(() => {
     fetchWeather(API_KEY, city).then(setWeather).catch(console.error);
     fetchForecast(API_KEY, city).then(setForecast).catch(console.error);
   }, [API_KEY, city]);
 
+  console.log(forecast);
+
   return (
     <>
       <Layout>
         <Title>Weather Forecast App</Title>
         <SearchBar onSearch={setCity} />
-        {weather && forecast && (
-          <WeatherCard weather={weather} forecast={forecast} />
-        )}
+        {weather && <WeatherCard weather={weather} />}
+
+        <div>
+          <h2>5-Day Forecast</h2>
+          <div style={{ display: "flex", gap: "1rem" }}>
+            {forecast &&
+              forecast.map((item) => (
+                <ForecastCard key={item.dt} item={item} />
+              ))}
+          </div>
+        </div>
       </Layout>
       <GlobalStyle />
     </>

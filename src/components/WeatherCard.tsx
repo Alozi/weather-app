@@ -1,6 +1,5 @@
 import styled, { keyframes } from "styled-components";
 import type { WeatherData } from "../types/weather";
-import type { ForecastData } from "../types/forecast";
 import {
   WiHumidity,
   WiStrongWind,
@@ -30,7 +29,7 @@ const Card = styled.div`
   padding: 2rem 3rem;
   text-align: center;
   width: 100%;
-  max-width: 500px;
+  max-width: 700px;
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
@@ -137,13 +136,7 @@ const Icon = styled.img`
   }
 `;
 
-export default function WeatherCard({
-  weather,
-  forecast,
-}: {
-  weather: WeatherData;
-  forecast: ForecastData;
-}) {
+export default function WeatherCard({ weather }: { weather: WeatherData }) {
   const currentTime = new Date().getTime();
   const currentTimeLocal = new Date(
     currentTime + weather.timezone * 1000
@@ -158,8 +151,6 @@ export default function WeatherCard({
   const sunset = new Date(
     weather.sys.sunset * 1000 + weather.timezone * 1000
   ).toUTCString();
-
-  console.log(forecast);
 
   return (
     <Card>
@@ -203,10 +194,6 @@ export default function WeatherCard({
           Sunset: {sunset}
         </InfoItem>
       </Details>
-      Forecast
-      {/* {forecast.list.map() => (
-        <div>hello</div>
-      ))} */}
     </Card>
   );
 }

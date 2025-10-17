@@ -14,7 +14,7 @@ export async function fetchWeather(API_KEY: string, city: string) {
 
 export async function fetchForecast(API_KEY: string, city: string) {
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=imperial`
+    `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`
   );
 
   if (!response.ok) {
@@ -22,6 +22,9 @@ export async function fetchForecast(API_KEY: string, city: string) {
   }
 
   const data = await response.json();
+  const dailyForecast = data.list.filter(
+    (_item: unknown, index: number) => index % 8 === 0
+  );
 
-  return data;
+  return dailyForecast;
 }
