@@ -51,9 +51,10 @@ const Card = styled.div`
 
 export default function ForecastCard({ item }: { item: ForecastData }) {
   const date = new Date(item.dt * 1000).toLocaleDateString("en-GB", {
-    weekday: "short",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
     day: "numeric",
-    month: "short",
   });
 
   const iconUrl = `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`;

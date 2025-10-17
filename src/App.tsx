@@ -26,6 +26,12 @@ const Title = styled.h1`
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 `;
 
+const TitleSecond = styled.h2`
+  font-size: 1.8rem;
+  color: #fff;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+`;
+
 function App() {
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
   const [city, setCity] = useState("Lisbon");
@@ -44,16 +50,13 @@ function App() {
       <Layout>
         <Title>Weather Forecast App</Title>
         <SearchBar onSearch={setCity} />
+        <TitleSecond>Current Weather</TitleSecond>
         {weather && <WeatherCard weather={weather} />}
 
-        <div>
-          <h2>5-Day Forecast</h2>
-          <div style={{ display: "flex", gap: "1rem" }}>
-            {forecast &&
-              forecast.map((item) => (
-                <ForecastCard key={item.dt} item={item} />
-              ))}
-          </div>
+        <TitleSecond>5-Day Forecast</TitleSecond>
+        <div style={{ display: "flex", gap: "1rem" }}>
+          {forecast &&
+            forecast.map((item) => <ForecastCard key={item.dt} item={item} />)}
         </div>
       </Layout>
       <GlobalStyle />
