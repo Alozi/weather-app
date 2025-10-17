@@ -8,7 +8,6 @@ import {
   WiSunrise,
   WiSunset,
   WiFog,
-  WiTime1,
 } from "react-icons/wi";
 
 const fadeIn = keyframes`
@@ -23,177 +22,175 @@ const fadeIn = keyframes`
 `;
 
 const Card = styled.div`
-  background: rgba(255, 255, 255, 0.8);
+  position: relative;
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 2rem 3rem;
-  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
   width: 100%;
-  max-width: 700px;
-  backdrop-filter: blur(10px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  backdrop-filter: blur(12px);
   animation: ${fadeIn} 0.5s ease-out;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 20px;
-    padding: 2px;
-    background: linear-gradient(135deg, #48cae4, #0096c7, #ade8f4);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
   }
 `;
 
-const City = styled.h2`
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+  margin: 1rem auto;
+`;
+
+const City = styled.h3`
+  text-align: center;
   font-size: 2.2rem;
-  color: #0077b6;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  color: #023e8a;
+  margin: 0.5rem 0;
 `;
 
 const Time = styled.p`
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
-  font-size: 1.2rem;
-  color: #0077b6;
+  text-align: center;
+  font-size: 1rem;
+  color: #023e8a;
 
   svg {
-    font-size: 2rem;
-    color: #0077b6;
+    font-size: 1.6rem;
   }
+`;
+
+const MainInfo = styled.div`
+  min-width: 300px;
+  flex: 1;
+  min-width: 280px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  text-align: center;
 `;
 
 const Temperature = styled.p`
   display: flex;
   align-items: center;
-  gap: 0.2rem;
+  justify-content: center;
+  gap: 0.4rem;
   font-size: 2.5rem;
-  font-weight: 700;
+  font-weight: bold;
   color: #023e8a;
 
   svg {
-    font-size: 4rem;
+    font-size: 3rem;
     color: #023e8a;
   }
 `;
 
 const FeelsLike = styled.p`
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.2rem;
   color: #023e8a;
 `;
 
 const Description = styled.p`
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.4rem;
   color: #023e8a;
   text-transform: capitalize;
 `;
 
-const Details = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem 1.5rem;
-  justify-items: center;
-  width: 100%;
-`;
-
-const InfoItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
-  color: #03045e;
-  font-size: 1rem;
-
-  svg {
-    font-size: 2rem;
-    color: #0077b6;
-  }
-`;
-
 const Icon = styled.img`
-  width: 110px;
-  height: 110px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100px;
+  height: 100px;
+  transition: transform 0.3s ease;
+  margin: 0 auto;
 
   ${Card}:hover & {
     transform: scale(1.1);
   }
 `;
 
-export default function WeatherCard({ weather }: { weather: WeatherData }) {
-  const currentTime = new Date().getTime();
-  const currentTimeLocal = new Date(
-    currentTime + weather.timezone * 1000
-  ).toUTCString();
+const Details = styled.div`
+  flex: 1;
+  min-width: 280px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  align-content: center;
+`;
 
+const InfoItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 1rem;
+  color: #023e8a;
+
+  svg {
+    font-size: 1.8rem;
+    color: #023e8a;
+  }
+`;
+
+export default function WeatherCard({ weather }: { weather: WeatherData }) {
   const iconCode = weather.weather[0].icon;
   const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 
   const sunrise = new Date(
-    weather.sys.sunrise * 1000 + weather.timezone * 1000
-  ).toUTCString();
+    (weather.sys.sunrise + weather.timezone) * 1000
+  ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
   const sunset = new Date(
-    weather.sys.sunset * 1000 + weather.timezone * 1000
-  ).toUTCString();
+    (weather.sys.sunset + weather.timezone) * 1000
+  ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+  const date = new Date(weather.dt * 1000).toLocaleDateString("en-GB", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <Card>
       <City>
         {weather.name}, {weather.sys.country}
       </City>
-      <Time>
-        <WiTime1 />
-        {currentTimeLocal}
-      </Time>
-      <Temperature>
-        <WiThermometer />
-        {Math.round(weather.main.temp)}°C
-      </Temperature>
-      <FeelsLike>Feels like {Math.round(weather.main.feels_like)}°C</FeelsLike>
-      <Icon src={iconUrl} alt={weather.weather[0].description} />
-      <Description>{weather.weather[0].description}</Description>
-      <Details>
-        <InfoItem>
-          <WiCloud />
-          Clouds: {weather.clouds.all}%
-        </InfoItem>
-        <InfoItem>
-          <WiStrongWind />
-          Wind: {weather.wind.speed} m/s
-        </InfoItem>
-        <InfoItem>
-          <WiHumidity />
-          Humidity: {weather.main.humidity}%
-        </InfoItem>
-        <InfoItem>
-          <WiFog />
-          Visibility: {weather.visibility / 1000}km
-        </InfoItem>
-        <InfoItem>
-          <WiSunrise />
-          Sunrise: {sunrise}
-        </InfoItem>
-        <InfoItem>
-          <WiSunset />
-          Sunset: {sunset}
-        </InfoItem>
-      </Details>
+      <Time>{date}</Time>
+      <Wrapper>
+        <MainInfo>
+          <Temperature>
+            <WiThermometer />
+            {Math.round(weather.main.temp)}°C
+          </Temperature>
+          <Icon src={iconUrl} alt={weather.weather[0].description} />
+          <FeelsLike>
+            Feels like {Math.round(weather.main.feels_like)}°C
+          </FeelsLike>
+          <Description>{weather.weather[0].description}</Description>
+        </MainInfo>
+        <Details>
+          <InfoItem>
+            <WiCloud /> {weather.clouds.all}% Clouds
+          </InfoItem>
+          <InfoItem>
+            <WiStrongWind /> {weather.wind.speed} m/s Wind
+          </InfoItem>
+          <InfoItem>
+            <WiHumidity /> {weather.main.humidity}% Humidity
+          </InfoItem>
+          <InfoItem>
+            <WiFog /> {(weather.visibility / 1000).toFixed(1)} km Visibility
+          </InfoItem>
+          <InfoItem>
+            <WiSunrise /> {sunrise} Sunrise
+          </InfoItem>
+          <InfoItem>
+            <WiSunset /> {sunset} Sunset
+          </InfoItem>
+        </Details>
+      </Wrapper>
     </Card>
   );
 }
