@@ -6,11 +6,11 @@ const Form = styled.form`
   display: flex;
   justify-content: space-between;
   gap: 0.5rem;
-  width: 300px;
+  width: 800px;
 `;
 
 const Input = styled.input`
-  width: 220px;
+  width: 100%;
   background: rgba(255, 255, 255, 0.8);
   padding: 0.5rem 1rem;
   font-size: 1rem;
