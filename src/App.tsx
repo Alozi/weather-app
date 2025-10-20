@@ -38,9 +38,29 @@ function App() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [forecast, setForecast] = useState<ForecastData[] | null>(null);
 
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    fetchWeather(API_KEY, city).then(setWeather).catch(console.error);
-    fetchForecast(API_KEY, city).then(setForecast).catch(console.error);
+    async function fetchData() {
+      try {
+        setError(null);
+
+        // fetchWeather(API_KEY, city).then(setWeather).catch(console.error);
+        // fetchForecast(API_KEY, city).then(setForecast).catch(console.error);
+
+        const weatherData = await fetchWeather(API_KEY, city);
+        const forecastData = await fetchForecast(API_KEY, city);
+
+        setWeather(weatherData);
+        setForecast(forecastData);
+      } catch {
+        setError("City not found. Please try again.");
+        setWeather(null);
+        setForecast(null);
+      }
+    }
+
+    fetchData();
   }, [API_KEY, city]);
 
   console.log(forecast);
@@ -50,14 +70,23 @@ function App() {
       <Layout>
         <Title>Weather Forecast App</Title>
         <SearchBar onSearch={setCity} />
-        <TitleSecond>Current Weather</TitleSecond>
-        {weather && <WeatherCard weather={weather} />}
-
-        <TitleSecond>5-Day Forecast</TitleSecond>
-        <div style={{ display: "flex", gap: "1rem" }}>
-          {forecast &&
-            forecast.map((item) => <ForecastCard key={item.dt} item={item} />)}
-        </div>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {weather && (
+          <>
+            <TitleSecond>Current Weather</TitleSecond>
+            <WeatherCard weather={weather} />
+          </>
+        )}
+        {forecast && (
+          <>
+            <TitleSecond>5-Day Forecast</TitleSecond>
+            <div style={{ display: "flex", gap: "1rem" }}>
+              {forecast.map((item) => (
+                <ForecastCard key={item.dt} item={item} />
+              ))}
+            </div>
+          </>
+        )}
       </Layout>
       <GlobalStyle />
     </>
