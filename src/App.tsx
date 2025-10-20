@@ -8,6 +8,7 @@ import type { ForecastData } from "./types/forecast";
 import { fetchWeather, fetchForecast } from "./api/fetchWeather";
 import SearchBar from "./components/SearchBar";
 import ForecastCard from "./components/ForecastCard";
+import ErrorCard from "./components/ErrorCard";
 
 const Layout = styled.div`
   display: flex;
@@ -70,7 +71,7 @@ function App() {
       <Layout>
         <Title>Weather Forecast App</Title>
         <SearchBar onSearch={setCity} />
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <ErrorCard message={error} />}
         {weather && (
           <>
             <TitleSecond>Current Weather</TitleSecond>
