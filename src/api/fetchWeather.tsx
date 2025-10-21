@@ -4,7 +4,6 @@ export async function fetchWeather(API_KEY: string, city: string) {
   );
 
   if (!response.ok) {
-    console.log(`Response status: ${response.status}`);
     throw new Error(`Response status: ${response.status}`);
   }
 

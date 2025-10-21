@@ -46,9 +46,6 @@ function App() {
       try {
         setError(null);
 
-        // fetchWeather(API_KEY, city).then(setWeather).catch(console.error);
-        // fetchForecast(API_KEY, city).then(setForecast).catch(console.error);
-
         const weatherData = await fetchWeather(API_KEY, city);
         const forecastData = await fetchForecast(API_KEY, city);
 
@@ -63,8 +60,6 @@ function App() {
 
     fetchData();
   }, [API_KEY, city]);
-
-  console.log(forecast);
 
   return (
     <>
