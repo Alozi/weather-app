@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import WeatherCard from "./components/WeatherCard";
 import { GlobalStyle } from "./styles/GlobalStyles";
 import type { WeatherData } from "./types/weather";
 import type { ForecastData } from "./types/forecast";
 import { fetchWeather, fetchForecast } from "./api/fetchWeather";
 import SearchBar from "./components/SearchBar";
-import ForecastCard from "./components/ForecastCard";
 import ErrorCard from "./components/ErrorCard";
+import ForecastSection from "./components/ForecastSection";
+import WeatherForecast from "./components/WeatherForecast";
 
 const Layout = styled.div`
   display: flex;
@@ -23,12 +23,6 @@ const Layout = styled.div`
 
 const Title = styled.h1`
   font-size: 2.5rem;
-  color: #fff;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
-`;
-
-const TitleSecond = styled.h2`
-  font-size: 1.8rem;
   color: #fff;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 `;
@@ -85,22 +79,9 @@ function App() {
           onGetCurrentPosition={handleCurrentPosition}
         />
         {error && <ErrorCard message={error} />}
-        {weather && (
-          <>
-            <TitleSecond>Current Weather</TitleSecond>
-            <WeatherCard weather={weather} />
-          </>
-        )}
-        {forecast && (
-          <>
-            <TitleSecond>5-Day Forecast</TitleSecond>
-            <div style={{ display: "flex", gap: "1rem" }}>
-              {forecast.map((item) => (
-                <ForecastCard key={item.dt} item={item} />
-              ))}
-            </div>
-          </>
-        )}
+
+        {weather && <WeatherForecast weather={weather} />}
+        {forecast && <ForecastSection forecast={forecast} />}
       </Layout>
       <GlobalStyle />
     </>
