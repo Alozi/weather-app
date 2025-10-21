@@ -1,12 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
-import type { SearchProps } from "../types/search";
 
 const Form = styled.form`
   display: flex;
   justify-content: space-between;
   gap: 0.5rem;
-  width: 800px;
+  width: 1000px;
 `;
 
 const Input = styled.input`
@@ -38,7 +37,13 @@ const Button = styled.button`
   }
 `;
 
-export default function SearchBar({ onSearch }: SearchProps) {
+export default function SearchBar({
+  onSearch,
+  onGetCurrentPosition,
+}: {
+  onSearch: (city: string) => void;
+  onGetCurrentPosition: () => void;
+}) {
   const [city, setCity] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -57,6 +62,9 @@ export default function SearchBar({ onSearch }: SearchProps) {
         onChange={(e) => setCity(e.target.value)}
       />
       <Button type="submit">Search</Button>
+      <Button type="button" onClick={onGetCurrentPosition}>
+        📍 My location
+      </Button>
     </Form>
   );
 }
