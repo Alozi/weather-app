@@ -35,12 +35,14 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(city: string) {
       try {
         setError(null);
 
-        const weatherData = await fetchWeather({ API_KEY, city });
-        const forecastData = await fetchForecast({ API_KEY, city });
+        const [weatherData, forecastData] = await Promise.all([
+          fetchWeather({ API_KEY, city }),
+          fetchForecast({ API_KEY, city }),
+        ]);
 
         setWeather(weatherData);
         setForecast(forecastData);
@@ -50,8 +52,7 @@ function App() {
         setForecast(null);
       }
     }
-
-    fetchData();
+    fetchData(city);
   }, [API_KEY, city]);
 
   async function handleCurrentPosition() {
@@ -60,8 +61,13 @@ function App() {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
 
-        setWeather(await fetchWeather({ API_KEY, lat, lon }));
-        setForecast(await fetchForecast({ API_KEY, lat, lon }));
+        const [weatherData, forecastData] = await Promise.all([
+          fetchWeather({ API_KEY, lat, lon }),
+          fetchForecast({ API_KEY, lat, lon }),
+        ]);
+
+        setWeather(weatherData);
+        setForecast(forecastData);
       },
       (error) => {
         alert("Unable to retrieve your location 😢");
