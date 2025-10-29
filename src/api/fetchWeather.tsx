@@ -1,14 +1,11 @@
-export async function fetchWeather({
-  API_KEY,
-  city,
-  lat,
-  lon,
-}: {
+interface fetchData {
   API_KEY: string;
   city?: string;
   lat?: number;
   lon?: number;
-}) {
+}
+
+export async function fetchWeather({ API_KEY, city, lat, lon }: fetchData) {
   let url = "";
 
   if (lat !== undefined && lon !== undefined) {
@@ -28,17 +25,7 @@ export async function fetchWeather({
   return data;
 }
 
-export async function fetchForecast({
-  API_KEY,
-  city,
-  lat,
-  lon,
-}: {
-  API_KEY: string;
-  city?: string;
-  lat?: number;
-  lon?: number;
-}) {
+export async function fetchForecast({ API_KEY, city, lat, lon }: fetchData) {
   let url = "";
 
   if (lat !== undefined && lon !== undefined) {
