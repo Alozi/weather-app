@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 import { GlobalStyle } from "./styles/GlobalStyles";
-import type { WeatherData } from "./types/weather";
-import type { ForecastData } from "./types/forecast";
 import { fetchWeather, fetchForecast } from "./api/fetchWeather";
 import SearchBar from "./components/SearchBar";
 import ErrorCard from "./components/ErrorCard";
 import ForecastSection from "./components/ForecastSection";
 import WeatherForecast from "./components/WeatherForecast";
+import { useWeather } from "./hooks/useWeather";
 
 const Layout = styled.div`
   display: flex;
@@ -30,44 +29,32 @@ const Title = styled.h1`
 function App() {
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
   const [city, setCity] = useState("Lisbon");
-  const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [forecast, setForecast] = useState<ForecastData[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function fetchData(city: string) {
-      try {
-        setError(null);
-
-        const [weatherData, forecastData] = await Promise.all([
-          fetchWeather({ API_KEY, city }),
-          fetchForecast({ API_KEY, city }),
-        ]);
-
-        setWeather(weatherData);
-        setForecast(forecastData);
-      } catch {
-        setError("City not found. Please try again.");
-        setWeather(null);
-        setForecast(null);
-      }
-    }
-    fetchData(city);
-  }, [API_KEY, city]);
+  const {
+    weather,
+    forecast,
+    error,
+    loading,
+    setWeather,
+    setForecast,
+    setError,
+  } = useWeather(API_KEY, city);
 
   async function handleCurrentPosition() {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-
-        const [weatherData, forecastData] = await Promise.all([
-          fetchWeather({ API_KEY, lat, lon }),
-          fetchForecast({ API_KEY, lat, lon }),
-        ]);
-
-        setWeather(weatherData);
-        setForecast(forecastData);
+        try {
+          const { latitude, longitude } = position.coords;
+          const [weatherData, forecastData] = await Promise.all([
+            fetchWeather({ API_KEY, lat: latitude, lon: longitude }),
+            fetchForecast({ API_KEY, lat: latitude, lon: longitude }),
+          ]);
+          setWeather(weatherData);
+          setForecast(forecastData);
+          setError(null);
+        } catch {
+          setError("Failed to get location weather 😢");
+        }
       },
       (error) => {
         alert("Unable to retrieve your location 😢");
@@ -84,6 +71,8 @@ function App() {
           onSearch={setCity}
           onGetCurrentPosition={handleCurrentPosition}
         />
+
+        {loading && <p>Loading...</p>}
         {error && <ErrorCard message={error} />}
 
         {weather && <WeatherForecast weather={weather} />}
