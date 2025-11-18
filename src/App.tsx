@@ -8,6 +8,7 @@ import ErrorCard from "./components/ErrorCard";
 import ForecastSection from "./components/ForecastSection";
 import WeatherForecast from "./components/WeatherForecast";
 import { useWeather } from "./hooks/useWeather";
+import Loader from "./components/Loader";
 
 const Layout = styled.div`
   display: flex;
@@ -80,7 +81,7 @@ function App() {
           onGetCurrentPosition={handleCurrentPosition}
         />
 
-        {loading && <p>Loading...</p>}
+        {loading && <Loader />}
         {error && <ErrorCard message={error} />}
 
         {weather && <WeatherForecast weather={weather} />}
