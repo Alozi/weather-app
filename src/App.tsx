@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { GlobalStyle } from "./styles/GlobalStyles";
@@ -28,7 +28,10 @@ const Title = styled.h1`
 
 function App() {
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
-  const [city, setCity] = useState("Lisbon");
+  const [city, setCity] = useState(() => {
+    const savedCity = localStorage.getItem("city");
+    return savedCity ? JSON.parse(savedCity) : "Lisbon";
+  });
 
   const {
     weather,
@@ -39,6 +42,10 @@ function App() {
     setForecast,
     setError,
   } = useWeather(API_KEY, city);
+
+  useEffect(() => {
+    localStorage.setItem("city", JSON.stringify(city));
+  }, [city]);
 
   async function handleCurrentPosition() {
     navigator.geolocation.getCurrentPosition(
@@ -51,6 +58,7 @@ function App() {
           ]);
           setWeather(weatherData);
           setForecast(forecastData);
+          setCity(weatherData.name);
           setError(null);
         } catch {
           setError("Failed to get location weather 😢");
