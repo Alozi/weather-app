@@ -7,9 +7,11 @@ export function useWeather(API_KEY: string, city: string) {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [forecast, setForecast] = useState<ForecastData[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    if (!city) return;
+
     async function fetchData() {
       try {
         setError(null);
@@ -22,8 +24,21 @@ export function useWeather(API_KEY: string, city: string) {
 
         setWeather(weatherData);
         setForecast(forecastData);
-      } catch {
-        setError("City not found. Please try again.");
+      } catch (error: any) {
+        const code = Number(error.message);
+
+        if (code === 401) {
+          setError("Invalid API key. Please check your API settings.");
+        } else if (code === 404) {
+          setError("City not found. Please try again.");
+        } else if (code === 429) {
+          setError("Too many requests. Please wait a moment.");
+        } else if (error instanceof TypeError) {
+          setError("Network error. Please check your internet connection.");
+        } else {
+          setError("Something went wrong. Please try again later.");
+        }
+
         setWeather(null);
         setForecast(null);
       } finally {

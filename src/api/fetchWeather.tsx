@@ -18,7 +18,7 @@ export async function fetchWeather({ API_KEY, city, lat, lon }: fetchData) {
 
   const response = await fetch(url);
   if (!response.ok) {
-    throw new Error(`Response status: ${response.status}`);
+    throw new Error(String(response.status));
   }
 
   const data = await response.json();
@@ -38,7 +38,7 @@ export async function fetchForecast({ API_KEY, city, lat, lon }: fetchData) {
 
   const response = await fetch(url);
   if (!response.ok) {
-    throw new Error(`Response status: ${response.status}`);
+    throw new Error(String(response.status));
   }
 
   const data = await response.json();
