@@ -9,6 +9,7 @@ import ForecastSection from "./components/ForecastSection";
 import WeatherForecast from "./components/WeatherForecast";
 import { useWeather } from "./hooks/useWeather";
 import Loader from "./components/Loader";
+import EmptyState from "./components/EmptyState";
 
 const Layout = styled.div`
   display: flex;
@@ -30,8 +31,12 @@ const Title = styled.h1`
 function App() {
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
   const [city, setCity] = useState(() => {
-    const savedCity = localStorage.getItem("city");
-    return savedCity ? JSON.parse(savedCity) : "Lisbon";
+    try {
+      const savedCity = localStorage.getItem("city");
+      return savedCity ? JSON.parse(savedCity) : null;
+    } catch {
+      return null;
+    }
   });
 
   const {
@@ -43,10 +48,6 @@ function App() {
     setForecast,
     setError,
   } = useWeather(API_KEY, city);
-
-  useEffect(() => {
-    localStorage.setItem("city", JSON.stringify(city));
-  }, [city]);
 
   async function handleCurrentPosition() {
     navigator.geolocation.getCurrentPosition(
@@ -80,6 +81,10 @@ function App() {
           onSearch={setCity}
           onGetCurrentPosition={handleCurrentPosition}
         />
+
+        {!loading && !weather && !error && (
+          <EmptyState message="Please, enter a city to see the weather" />
+        )}
 
         {loading && <Loader />}
         {error && <ErrorCard message={error} />}

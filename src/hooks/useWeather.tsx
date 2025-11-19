@@ -22,6 +22,8 @@ export function useWeather(API_KEY: string, city: string) {
           fetchForecast({ API_KEY, city }),
         ]);
 
+        localStorage.setItem("city", JSON.stringify(city));
+
         setWeather(weatherData);
         setForecast(forecastData);
       } catch (error: any) {
@@ -30,6 +32,7 @@ export function useWeather(API_KEY: string, city: string) {
         if (code === 401) {
           setError("Invalid API key. Please check your API settings.");
         } else if (code === 404) {
+          localStorage.removeItem("city");
           setError("City not found. Please try again.");
         } else if (code === 429) {
           setError("Too many requests. Please wait a moment.");
