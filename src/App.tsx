@@ -82,7 +82,7 @@ function App() {
           onGetCurrentPosition={handleCurrentPosition}
         />
 
-        {!loading && !weather && !error && (
+        {city === null && !loading && !weather && !error && (
           <EmptyState message="Please, enter a city to see the weather" />
         )}
 
