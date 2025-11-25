@@ -80,6 +80,7 @@ function App() {
         <SearchBar
           onSearch={setCity}
           onGetCurrentPosition={handleCurrentPosition}
+          API_KEY={API_KEY}
         />
 
         {city === null && !loading && !weather && !error && (
