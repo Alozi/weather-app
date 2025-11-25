@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
 import { GlobalStyle } from "./styles/GlobalStyles";
 import { fetchWeather, fetchForecast } from "./api/fetchWeather";
@@ -10,6 +10,7 @@ import WeatherForecast from "./components/WeatherForecast";
 import { useWeather } from "./hooks/useWeather";
 import Loader from "./components/Loader";
 import EmptyState from "./components/EmptyState";
+import { darkTheme, lightTheme } from "./styles/theme";
 
 const Layout = styled.div`
   display: flex;
@@ -25,11 +26,13 @@ const Layout = styled.div`
 const Title = styled.h1`
   font-size: 2.5rem;
   color: #fff;
+  color: ${({ theme }) => theme.colors.colorTitle};
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 `;
 
 function App() {
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+  const [themeLight, toogleThemeLight] = useState(true);
   const [city, setCity] = useState(() => {
     try {
       const savedCity = localStorage.getItem("city");
@@ -74,8 +77,16 @@ function App() {
   }
 
   return (
-    <>
+    <ThemeProvider theme={themeLight === true ? lightTheme : darkTheme}>
       <Layout>
+        <button
+          onClick={() => {
+            toogleThemeLight(!themeLight);
+          }}
+          style={{ marginBottom: "1rem" }}
+        >
+          {themeLight === true ? "☀️ Light" : "🌙 Dark"}
+        </button>
         <Title>Weather Forecast App</Title>
         <SearchBar
           onSearch={setCity}
@@ -94,7 +105,7 @@ function App() {
         {forecast && <ForecastSection forecast={forecast} />}
       </Layout>
       <GlobalStyle />
-    </>
+    </ThemeProvider>
   );
 }
 
