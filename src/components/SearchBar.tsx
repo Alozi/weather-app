@@ -12,16 +12,16 @@ const Form = styled.form`
 const Input = styled.input`
   height: 48px;
   width: 100%;
-  background: rgba(255, 255, 255, 0.8);
+  background: ${({ theme }) => theme.colors.backgroundColor};
   padding: 0.5rem 1rem;
   font-size: 1rem;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid ${({ theme }) => theme.colors.greyColor};
   outline: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: ${({ theme }) => theme.colors.shadow};
 
   &:focus {
-    border-color: #0077b6;
+    border-color: ${({ theme }) => theme.button.background};
   }
 `;
 
@@ -30,13 +30,13 @@ const Button = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 8px;
   border: none;
-  background-color: #0077b6;
-  color: #fff;
+  background-color: ${({ theme }) => theme.button.background};
+  color: ${({ theme }) => theme.colors.whiteColor};
   cursor: pointer;
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: #535bf2;
+    background-color: ${({ theme }) => theme.button.hover};
   }
 `;
 
@@ -45,9 +45,9 @@ const Dropdown = styled.ul`
   top: 110%;
   left: 0;
   width: calc(100% - 190px);
-  background: white;
+  background: ${({ theme }) => theme.input.background};
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: ${({ theme }) => theme.colors.shadow};
   list-style: none;
   margin: 0;
   padding: 0.3rem 0;
@@ -62,7 +62,7 @@ const Item = styled.li`
   font-size: 0.95rem;
 
   &:hover {
-    background: #f0f0f0;
+    background: ${({ theme }) => theme.input.hover};
   }
 `;
 

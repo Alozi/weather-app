@@ -1,7 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-  /* Reset */
   * {
     margin: 0;
     padding: 0;
@@ -14,8 +13,6 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Montserrat', system-ui, Avenir, Helvetica, Arial, sans-serif;
-    background-color: #f0f4f8;
-    color: #333;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -27,7 +24,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   a {
-    color: #0077b6;
     text-decoration: none;
   }
 

@@ -8,7 +8,7 @@ const spin = keyframes`
 const Overlay = styled.div`
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.2);
+  background: ${({ theme }) => theme.loader.background};
   backdrop-filter: blur(2px);
   display: flex;
   justify-content: center;
@@ -19,8 +19,8 @@ const Overlay = styled.div`
 const Spinner = styled.div`
   width: 60px;
   height: 60px;
-  border: 6px solid rgba(255, 255, 255, 0.3);
-  border-top-color: #ffffff;
+  border: ${({ theme }) => theme.loader.border};
+  border-top-color: ${({ theme }) => theme.colors.whiteColor};
   border-radius: 50%;
   animation: ${spin} 1s linear infinite;
 `;

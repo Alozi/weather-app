@@ -18,16 +18,14 @@ const Layout = styled.div`
   align-items: center;
   min-height: 100vh;
   gap: 2rem;
-  background: linear-gradient(to bottom right, #a2d2ff, #bde0fe, #fff1e6);
+  background: ${({ theme }) => theme.gradients.background};
   padding: 2rem;
-  color: #333;
 `;
 
 const Title = styled.h1`
   font-size: 2.5rem;
-  color: #fff;
-  color: ${({ theme }) => theme.colors.colorTitle};
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  color: ${({ theme }) => theme.colors.whiteColor};
+  text-shadow: ${({ theme }) => theme.colors.shadow};
 `;
 
 function App() {
