@@ -17,6 +17,16 @@ declare module "styled-components" {
       hover: string;
       grey: string;
     };
+    card: {
+      titleColor: string;
+      titleShadow: string;
+      cardBackground: string;
+      cardShadow: string;
+      cardShadowHover: string;
+      cardBackgroundGradient: string;
+      cardMask: string;
+      cardText: string;
+    };
     gradients: {
       background: string;
     };

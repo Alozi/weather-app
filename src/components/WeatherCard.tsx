@@ -23,9 +23,9 @@ const fadeIn = keyframes`
 
 const Card = styled.div`
   position: relative;
-  background: rgba(255, 255, 255, 0.85);
+  background: ${({ theme }) => theme.card.cardBackground};
   border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: ${({ theme }) => theme.card.cardShadow};
   padding: 2rem;
   width: 100%;
   max-width: 1000px;
@@ -35,7 +35,7 @@ const Card = styled.div`
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    box-shadow: ${({ theme }) => theme.card.cardShadowHover};
   }
 `;
 
@@ -50,14 +50,14 @@ const Wrapper = styled.div`
 const City = styled.h3`
   text-align: center;
   font-size: 2.2rem;
-  color: #023e8a;
+  color: ${({ theme }) => theme.card.cardText};
   margin: 0.5rem 0;
 `;
 
 const Time = styled.p`
   text-align: center;
   font-size: 1rem;
-  color: #023e8a;
+  color: ${({ theme }) => theme.card.cardText};
 
   svg {
     font-size: 1.6rem;
@@ -81,22 +81,22 @@ const Temperature = styled.p`
   gap: 0.4rem;
   font-size: 2.5rem;
   font-weight: bold;
-  color: #023e8a;
+  color: ${({ theme }) => theme.card.cardText};
 
   svg {
     font-size: 3rem;
-    color: #023e8a;
+    color: ${({ theme }) => theme.card.cardText};
   }
 `;
 
 const FeelsLike = styled.p`
   font-size: 1.2rem;
-  color: #023e8a;
+  color: ${({ theme }) => theme.card.cardText};
 `;
 
 const Description = styled.p`
   font-size: 1.4rem;
-  color: #023e8a;
+  color: ${({ theme }) => theme.card.cardText};
   text-transform: capitalize;
 `;
 
@@ -125,11 +125,11 @@ const InfoItem = styled.div`
   align-items: center;
   gap: 0.3rem;
   font-size: 1rem;
-  color: #023e8a;
+  color: ${({ theme }) => theme.card.cardText};
 
   svg {
     font-size: 1.8rem;
-    color: #023e8a;
+    color: ${({ theme }) => theme.card.cardText};
   }
 `;
 

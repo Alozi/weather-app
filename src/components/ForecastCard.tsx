@@ -13,9 +13,9 @@ const fadeIn = keyframes`
 `;
 
 const Card = styled.div`
-  background: rgba(255, 255, 255, 0.8);
+  background: ${({ theme }) => theme.card.cardBackground};
   border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: ${({ theme }) => theme.card.cardShadow};
   padding: 2rem 3rem;
   text-align: center;
   width: 100%;
@@ -25,13 +25,13 @@ const Card = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   animation: ${fadeIn} 0.5s ease-out;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: ${({ theme }) => theme.card.cardText};
 
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: ${({ theme }) => theme.card.cardShadow};
   }
 
   &::before {
@@ -40,9 +40,8 @@ const Card = styled.div`
     inset: 0;
     border-radius: 20px;
     padding: 2px;
-    background: linear-gradient(135deg, #48cae4, #0096c7, #ade8f4);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
+    background: ${({ theme }) => theme.card.cardBackgroundGradient};
+    -webkit-mask: ${({ theme }) => theme.card.cardMask};
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;

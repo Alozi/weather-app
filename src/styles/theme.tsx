@@ -14,6 +14,18 @@ export const lightTheme = {
     hover: "#f0f0f0",
     grey: "#333",
   },
+  card: {
+    titleColor: "#fff",
+    titleShadow: "1px 1px 4px rgba(0, 0, 0, 0.2)",
+    cardBackground: "rgba(255, 255, 255, 0.8)",
+    cardShadow: "0 8px 20px rgba(0, 0, 0, 0.1)",
+    cardShadowHover: "0 12px 25px rgba(0, 0, 0, 0.15)",
+    cardBackgroundGradient:
+      "linear-gradient(135deg, #48cae4, #0096c7, #ade8f4)",
+    cardMask:
+      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+    cardText: "#023e8a",
+  },
   gradients: {
     background: "linear-gradient(to bottom right, #a2d2ff, #bde0fe, #fff1e6)",
   },
@@ -44,6 +56,18 @@ export const darkTheme = {
     background: "#fff",
     hover: "#f0f0f0",
     grey: "#333",
+  },
+  card: {
+    titleColor: "#fff",
+    titleShadow: "1px 1px 4px rgba(0, 0, 0, 0.2)",
+    cardBackground: "rgba(255, 255, 255, 0.8)",
+    cardShadow: "0 8px 20px rgba(0, 0, 0, 0.1)",
+    cardShadowHover: "0 12px 25px rgba(0, 0, 0, 0.15)",
+    cardBackgroundGradient:
+      "linear-gradient(135deg, #48cae4, #0096c7, #ade8f4)",
+    cardMask:
+      "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+    cardText: "#023e8a",
   },
   gradients: {
     background: "linear-gradient(to bottom right, #232526, #414345)",
