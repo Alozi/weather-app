@@ -11,6 +11,7 @@ import { useWeather } from "./hooks/useWeather";
 import Loader from "./components/Loader";
 import EmptyState from "./components/EmptyState";
 import { darkTheme, lightTheme } from "./styles/theme";
+import ThemeToggleButton from "./components/ThemeToggleButton";
 
 const Layout = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ const Layout = styled.div`
   min-height: 100vh;
   gap: 2rem;
   background: ${({ theme }) => theme.gradients.background};
+  transition: background-color 0.5s ease;
   padding: 2rem;
 `;
 
@@ -77,14 +79,12 @@ function App() {
   return (
     <ThemeProvider theme={themeLight === true ? lightTheme : darkTheme}>
       <Layout>
-        <button
-          onClick={() => {
+        <ThemeToggleButton
+          themeLight={themeLight}
+          onChange={() => {
             toogleThemeLight(!themeLight);
           }}
-          style={{ marginBottom: "1rem" }}
-        >
-          {themeLight === true ? "☀️ Light" : "🌙 Dark"}
-        </button>
+        />
         <Title>Weather Forecast App</Title>
         <SearchBar
           onSearch={setCity}
