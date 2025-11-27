@@ -9,6 +9,10 @@ const Form = styled.form`
   width: auto;
   width: 100%;
   max-width: 1000px;
+
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -45,13 +49,17 @@ const Button = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.button.hover};
   }
+
+  @media (max-width: 480px) {
+    width: 48%;
+  }
 `;
 
 const Dropdown = styled.ul`
   position: absolute;
   top: 110%;
   left: 0;
-  width: calc(100% - 190px);
+  width: 90%;
   background: ${({ theme }) => theme.input.background};
   border-radius: 8px;
   box-shadow: ${({ theme }) => theme.colors.shadow};
