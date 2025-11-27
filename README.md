@@ -18,7 +18,15 @@ A simple and elegant Weather App built with React, TypeScript and styled-compone
 
 ## ⚙️ Features
 
-✅ Search weather by typing the city name ✅ Shows temperature, humidity, wind speed, and "feels like" data ✅ Saves the last searched city in localStorage ✅ Uses navigator.geolocation to detect the user's coordinates ✅ Automatically fetches real-time weather based on current location ✅ Theme toggle built with styled-components ✅ Custom themes stored using ThemeProvider ✅ Displays accurate sunrise & sunset time for the selected location ✅ Responsive UI
+## ⚙️ Features
+
+✅ Search weather by typing the city name  
+✅ Shows temperature, humidity, wind speed, and "feels like" data  
+✅ Saves the last searched city in localStorage  
+✅ Uses navigator.geolocation to detect the user's coordinates ✅ Theme toggle built with styled-components  
+✅ Custom themes stored using ThemeProvider  
+✅ Displays accurate sunrise & sunset time for the selected location  
+✅ Responsive UI
 
 ---
 
