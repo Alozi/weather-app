@@ -45,6 +45,10 @@ const Wrapper = styled.div`
   align-items: stretch;
   flex-wrap: wrap;
   margin: 1rem auto;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
 `;
 
 const City = styled.h3`
@@ -65,9 +69,7 @@ const Time = styled.p`
 `;
 
 const MainInfo = styled.div`
-  min-width: 300px;
   flex: 1;
-  min-width: 280px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
@@ -113,11 +115,15 @@ const Icon = styled.img`
 
 const Details = styled.div`
   flex: 1;
-  min-width: 280px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   align-content: center;
+
+  @media (max-width: 768px) {
+    margin-top: 1rem;
+    grid-template-columns: 1fr;
+  }
 `;
 
 const InfoItem = styled.div`

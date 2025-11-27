@@ -6,6 +6,15 @@ import WeatherTitle from "./WeatherTitle";
 const Wrapper = styled.div`
   display: flex;
   gap: 1rem;
+
+  @media (max-width: 1024px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export default function ForecastSection({

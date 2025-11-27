@@ -6,6 +6,9 @@ const Form = styled.form`
   display: flex;
   justify-content: space-between;
   gap: 0.5rem;
+  width: auto;
+  width: 100%;
+  max-width: 1000px;
 `;
 
 const Wrapper = styled.div`

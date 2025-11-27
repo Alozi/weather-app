@@ -21,7 +21,7 @@ const Layout = styled.div`
   gap: 2rem;
   background: ${({ theme }) => theme.gradients.background};
   transition: background-color 0.5s ease;
-  padding: 2rem;
+  padding: 4rem 2rem 2rem;
 `;
 
 const Title = styled.h1`
