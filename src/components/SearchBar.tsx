@@ -6,7 +6,11 @@ const Form = styled.form`
   display: flex;
   justify-content: space-between;
   gap: 0.5rem;
-  width: 1000px;
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
+  position: relative;
 `;
 
 const Input = styled.input`
@@ -112,7 +116,7 @@ export default function SearchBar({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <div style={{ width: "100%", position: "relative" }}>
+      <Wrapper>
         <Input
           type="text"
           placeholder="Search for cities"
@@ -134,7 +138,7 @@ export default function SearchBar({
             ))}
           </Dropdown>
         )}
-      </div>
+      </Wrapper>
       <Button type="submit">Search</Button>
       <Button type="button" onClick={onGetCurrentPosition}>
         My location
